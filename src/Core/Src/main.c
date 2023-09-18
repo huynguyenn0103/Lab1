@@ -47,8 +47,9 @@
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
 /* USER CODE BEGIN PFP */
-
+void display7SEG(int);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -83,8 +84,9 @@ int main(void)
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
+  MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-
+  int counter = 0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -92,7 +94,11 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-
+	  if(counter >= 10){
+	 		 counter = 0;
+	  }
+	 	  display7SEG(counter++);
+	 	  HAL_Delay(1000);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -133,8 +139,75 @@ void SystemClock_Config(void)
   }
 }
 
-/* USER CODE BEGIN 4 */
+/**
+  * @brief GPIO Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_GPIO_Init(void)
+{
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
 
+  /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, Seg_a_Pin|Seg_b_Pin|Seg_c_Pin|Seg_d_Pin
+                          |Seg_e_Pin|Seg_f_Pin|Seg_g_Pin, GPIO_PIN_SET);
+
+  /*Configure GPIO pins : Seg_a_Pin Seg_b_Pin Seg_c_Pin Seg_d_Pin
+                           Seg_e_Pin Seg_f_Pin Seg_g_Pin */
+  GPIO_InitStruct.Pin = Seg_a_Pin|Seg_b_Pin|Seg_c_Pin|Seg_d_Pin
+                          |Seg_e_Pin|Seg_f_Pin|Seg_g_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+}
+
+/* USER CODE BEGIN 4 */
+void display7SEG(int counter){
+	if(counter == 0){
+		HAL_GPIO_WritePin(GPIOB, Seg_a_Pin|Seg_b_Pin|Seg_c_Pin|Seg_d_Pin|Seg_e_Pin|Seg_f_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOB, Seg_g_Pin, GPIO_PIN_SET);
+	}
+	else if(counter == 1){
+		HAL_GPIO_WritePin(GPIOB,Seg_b_Pin|Seg_c_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOB, Seg_a_Pin|Seg_d_Pin|Seg_e_Pin|Seg_f_Pin|Seg_g_Pin, GPIO_PIN_SET);
+	}
+	else if(counter == 2){
+		HAL_GPIO_WritePin(GPIOB,Seg_a_Pin|Seg_b_Pin|Seg_d_Pin|Seg_e_Pin|Seg_g_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOB, Seg_c_Pin|Seg_f_Pin, GPIO_PIN_SET);
+	}
+	else if(counter == 3){
+		HAL_GPIO_WritePin(GPIOB,Seg_a_Pin|Seg_b_Pin|Seg_c_Pin|Seg_d_Pin|Seg_g_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOB, Seg_e_Pin|Seg_f_Pin, GPIO_PIN_SET);
+	}
+	else if (counter == 4){
+		HAL_GPIO_WritePin(GPIOB,Seg_b_Pin|Seg_c_Pin|Seg_f_Pin|Seg_g_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOB, Seg_a_Pin|Seg_d_Pin|Seg_e_Pin, GPIO_PIN_SET);
+	}
+	else if (counter == 5){
+		HAL_GPIO_WritePin(GPIOB,Seg_a_Pin|Seg_c_Pin|Seg_d_Pin|Seg_f_Pin|Seg_g_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOB, Seg_b_Pin|Seg_e_Pin, GPIO_PIN_SET);
+	}
+	else if (counter == 6){
+		HAL_GPIO_WritePin(GPIOB,Seg_a_Pin|Seg_c_Pin|Seg_d_Pin|Seg_e_Pin|Seg_f_Pin|Seg_g_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOB, Seg_b_Pin, GPIO_PIN_SET);
+	}
+	else if (counter == 7){
+		HAL_GPIO_WritePin(GPIOB,Seg_a_Pin|Seg_b_Pin|Seg_c_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOB, Seg_d_Pin|Seg_e_Pin|Seg_f_Pin|Seg_g_Pin, GPIO_PIN_SET);
+	}
+	else if (counter == 8){
+		HAL_GPIO_WritePin(GPIOB,Seg_a_Pin|Seg_b_Pin|Seg_c_Pin|Seg_d_Pin|Seg_e_Pin|Seg_f_Pin|Seg_g_Pin, GPIO_PIN_RESET);
+	}
+	else if (counter == 9){
+		HAL_GPIO_WritePin(GPIOB,Seg_a_Pin|Seg_b_Pin|Seg_c_Pin|Seg_d_Pin|Seg_f_Pin|Seg_g_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOB,Seg_e_Pin, GPIO_PIN_SET);
+	}
+}
 /* USER CODE END 4 */
 
 /**
