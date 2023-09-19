@@ -94,6 +94,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
+//	  Initially, RED_LED is reset, YELLOW_LED and GREEN_LED is set
 	  if(counter == 5){
 		  HAL_GPIO_WritePin ( LED_RED_GPIO_Port , LED_RED_Pin , GPIO_PIN_SET );
 		  HAL_GPIO_WritePin ( LED_GREEN_GPIO_Port , LED_GREEN_Pin , GPIO_PIN_RESET ) ;
