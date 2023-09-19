@@ -94,6 +94,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
+//	  Initially, RED_LED is reset and YELLOW_LED is set
 	  if(counter > 0){
 		  counter--;
 	  }
