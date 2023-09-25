@@ -87,10 +87,10 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-  int time_green = 6;
+  int time_green = 5;
   int time_yellow = 3;
   int time_red = 9;
-  int time_total = time_green + time_yellow + time_red;
+  int time_total = time_green + time_yellow + time_red + 3;
 
   int counter1 = time_total;
   int counter7Segled1 = time_red;
@@ -104,14 +104,14 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-	  if(counter1 == time_total - time_red){
+	          if(counter1 == time_total - time_red -1 ){
 	  //	  		  Red -> Green
 	  	  		  HAL_GPIO_WritePin ( LED_RED1_GPIO_Port , LED_RED1_Pin , GPIO_PIN_SET );
 	  	  		  HAL_GPIO_WritePin ( LED_GREEN1_GPIO_Port , LED_GREEN1_Pin , GPIO_PIN_RESET ) ;
 	  	  		  counter7Segled1 = time_green;
 	  	  	  }
 	  //	  	     Green -> Yellow
-	  	  	  else if(counter1 == time_total - time_red - time_green){
+	  	  	  else if(counter1 == time_total - time_red - time_green - 2){
 	  	  		  HAL_GPIO_WritePin ( LED_GREEN1_GPIO_Port , LED_GREEN1_Pin , GPIO_PIN_SET );
 	  	  		  HAL_GPIO_WritePin ( LED_YELLOW1_GPIO_Port , LED_YELLOW1_Pin , GPIO_PIN_RESET ) ;
 	  	  		  counter7Segled1 = time_yellow;
@@ -124,13 +124,13 @@ int main(void)
 	  	  		  counter7Segled1 = time_red;
 	  	  	  }
 
-	  	  	  if (counter2 == time_total - time_green){
+	  	  	  if (counter2 == time_total - time_green - 1){
 	  //	  		  Green -> Yellow
 	  	  		  HAL_GPIO_WritePin ( LED_GREEN2_GPIO_Port , LED_GREEN2_Pin , GPIO_PIN_SET );
 	  	  		  HAL_GPIO_WritePin ( LED_YELLOW2_GPIO_Port , LED_YELLOW2_Pin , GPIO_PIN_RESET ) ;
 	  	  		  counter7Segled2 = time_yellow;
 	  	  	  }
-	  	  	  if (counter2 == time_total - time_green - time_yellow){
+	  	  	  if (counter2 == time_total - time_green - time_yellow -2){
 	  //	  		  Yellow -> Red
 	  	  		  HAL_GPIO_WritePin ( LED_YELLOW2_GPIO_Port , LED_YELLOW2_Pin , GPIO_PIN_SET );
 	  	  		  HAL_GPIO_WritePin ( LED_RED2_GPIO_Port , LED_RED2_Pin , GPIO_PIN_RESET ) ;
