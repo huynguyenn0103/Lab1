@@ -105,15 +105,16 @@ int main(void)
 	  	if(sec == 60){
 	  		sec = 0;
 	  		min++;
-	  		if(min == 60){
-	  			min = 0;
-	  			hour++;
-	  			if(hour == 12){
-	  				hour = 0;
-	  			}
-	  		}
 	  	}
-	  	HAL_Delay(1000);
+	  	if(min == 60){
+	  		min = 0;
+	  	    hour++;
+	  	}
+	  	if(hour == 12){
+	  		hour = 0;
+	  	}
+
+	  	HAL_Delay(10);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
